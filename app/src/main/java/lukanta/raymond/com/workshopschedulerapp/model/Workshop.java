@@ -17,6 +17,7 @@ public class Workshop implements Parcelable {
     private int oilChange;
     private int batteryChange;
     private int tyreChange;
+    private double distance;
 
     public int getBatteryChange() {
         return batteryChange;
@@ -53,6 +54,14 @@ public class Workshop implements Parcelable {
         return workshopName;
     }
 
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
 
     @Override
     public int describeContents() {
@@ -69,6 +78,7 @@ public class Workshop implements Parcelable {
         dest.writeInt(this.oilChange);
         dest.writeInt(this.batteryChange);
         dest.writeInt(this.tyreChange);
+        dest.writeDouble(this.distance);
     }
 
     public Workshop() {
@@ -83,9 +93,10 @@ public class Workshop implements Parcelable {
         this.oilChange = in.readInt();
         this.batteryChange = in.readInt();
         this.tyreChange = in.readInt();
+        this.distance = in.readDouble();
     }
 
-    public static final Parcelable.Creator<Workshop> CREATOR = new Parcelable.Creator<Workshop>() {
+    public static final Creator<Workshop> CREATOR = new Creator<Workshop>() {
         @Override
         public Workshop createFromParcel(Parcel source) {
             return new Workshop(source);

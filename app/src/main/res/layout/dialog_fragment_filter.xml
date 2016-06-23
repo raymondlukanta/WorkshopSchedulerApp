@@ -36,13 +36,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_below="@id/cb_battery_change"
-        android:text="Customer Rating"/>
+        android:text="@string/customer_rating"/>
 
     <SeekBar
         android:id="@+id/sb_customer_rating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_customer_rating" />
+        android:layout_below="@id/txt_customer_rating"
+        android:max="5"/>
 
     <TextView
         android:id="@+id/txt_distance_from_me"
@@ -50,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/sb_customer_rating"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="Customer Rating"/>
+        android:text="@string/distance_from_me"/>
 
     <SeekBar
         android:id="@+id/sb_distance_from_me"

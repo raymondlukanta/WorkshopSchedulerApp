@@ -1,11 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="lukanta.raymond.com.workshopschedulerapp.mappage.WorkshopDetailsActivityFragment"
     tools:showIn="@layout/activity_workshop_details">
 
@@ -13,38 +10,54 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        app:layout_heightPercent="55%"
         tools:context="lukanta.raymond.com.workshopschedulerapp.mappage.MapActivity" />
 
-    <include
-        layout="@layout/workshop_details"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_direction" />
-    
-    <ImageButton
-        android:id="@+id/btn_direction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_book_appointment"
-        android:contentDescription="@string/btn_direction"
-        android:src="@android:drawable/ic_menu_directions"/>
+        android:layout_below="@+id/map"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-    <ImageButton
-        android:id="@+id/btn_call"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_book_appointment"
-        android:layout_toRightOf="@+id/btn_direction"
-        android:contentDescription="@string/btn_call"
-        android:src="@android:drawable/ic_menu_call"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btn_book_appointment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/book_appointment" />
+            <include
+                layout="@layout/workshop_details"
+                android:id="@+id/workshop_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-</RelativeLayout>
+            <ImageButton
+                android:id="@+id/btn_direction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/workshop_details"
+                android:contentDescription="@string/btn_direction"
+                android:src="@android:drawable/ic_menu_directions" />
+
+            <ImageButton
+                android:id="@+id/btn_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/workshop_details"
+                android:layout_toRightOf="@+id/btn_direction"
+                android:contentDescription="@string/btn_call"
+                android:src="@android:drawable/ic_menu_call" />
+
+            <Button
+                android:id="@+id/btn_book_appointment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_direction"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="@string/book_appointment" />
+        </RelativeLayout>
+    </ScrollView>
+
+
+</android.support.percent.PercentRelativeLayout>

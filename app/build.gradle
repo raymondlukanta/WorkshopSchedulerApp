@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "lukanta.raymond.com.workshopschedulerapp"
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -30,8 +30,10 @@ dependencies {
     compile "com.android.support:appcompat-v7:$AndroidSupportVersion"
     compile "com.android.support:design:$AndroidSupportVersion"
     compile "com.android.support:recyclerview-v7:$AndroidSupportVersion"
+    compile "com.android.support:percent:$AndroidSupportVersion"
 
     compile "com.google.android.gms:play-services-base:$GooglePlayServiceVersion"
+    compile "com.google.android.gms:play-services-location:$GooglePlayServiceVersion"
     compile "com.google.android.gms:play-services-maps:$GooglePlayServiceVersion"
 
     compile "com.squareup.retrofit2:retrofit:$RetrofitVersion"

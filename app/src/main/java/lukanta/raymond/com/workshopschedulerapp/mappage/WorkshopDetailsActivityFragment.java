@@ -8,9 +8,11 @@ import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,9 +23,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Locale;
 
+import lukanta.raymond.com.workshopschedulerapp.bookingpage.BookingActivity;
 import lukanta.raymond.com.workshopschedulerapp.R;
 import lukanta.raymond.com.workshopschedulerapp.model.Workshop;
 import lukanta.raymond.com.workshopschedulerapp.ui.BaseFragment;
+import lukanta.raymond.com.workshopschedulerapp.util.IntentUtil;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -44,7 +48,6 @@ public class WorkshopDetailsActivityFragment extends BaseFragment implements OnM
 
         Bundle b = getActivity().getIntent().getExtras();
         mWorkshop = b.getParcelable(WORKSHOP_EXTRA);
-
     }
 
     @Override
@@ -52,7 +55,7 @@ public class WorkshopDetailsActivityFragment extends BaseFragment implements OnM
         mMap = googleMap;
 
         LatLng workshopLatLng = mWorkshop.getWorkshopCoordinates();
-        mMap.addMarker(new MarkerOptions().position(workshopLatLng).title("The workshop location"));
+        mMap.addMarker(new MarkerOptions().position(workshopLatLng).title(mWorkshop.getWorkshopName()));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(workshopLatLng, 18));
     }
 
@@ -75,24 +78,27 @@ public class WorkshopDetailsActivityFragment extends BaseFragment implements OnM
         mapFragment.getMapAsync(this);
 
         TextView workshopNameTextView = (TextView) mLayout.findViewById(R.id.txt_workshop_name);
-        TextView workshopRatingTextView = (TextView) mLayout.findViewById(R.id.txt_workshop_rating);
-        ImageView workshopServiceTyreImageView = (ImageView) mLayout.findViewById(R.id.img_workshop_services_tire);
-        ImageView workshopServiceOilImageView = (ImageView) mLayout.findViewById(R.id.img_workshop_services_oil);
-        ImageView workshopServiceBatteryImageView = (ImageView) mLayout.findViewById(R.id.img_workshop_services_battery);
+        RatingBar workshopRatingBar = (RatingBar) mLayout.findViewById(R.id.rating_bar_workshop_rating);
+        TextView workshopServiceTyreTextView = (TextView) mLayout.findViewById(R.id.img_workshop_services_tyre);
+        TextView workshopServiceOilTextView = (TextView) mLayout.findViewById(R.id.img_workshop_services_oil);
+        TextView workshopServiceBatteryTextView = (TextView) mLayout.findViewById(R.id.img_workshop_services_battery);
+        TextView workshopServiceDistanceTextView = (TextView) mLayout.findViewById(R.id.txt_workshop_distance);;
 
         workshopNameTextView.setText(mWorkshop.getWorkshopName());
-        workshopRatingTextView.setText(getActivity().getString(R.string.rating, mWorkshop.getCustomerRating()));
+        workshopRatingBar.setRating(mWorkshop.getCustomerRating());
+
+        workshopServiceDistanceTextView.setText(getActivity().getString(R.string.distance, mWorkshop.getDistance()));
 
         if (mWorkshop.getTyreChange() == 0) {
-            workshopServiceTyreImageView.setVisibility(View.GONE);
+            workshopServiceTyreTextView.setVisibility(View.GONE);
         }
 
         if (mWorkshop.getOilChange() == 0) {
-            workshopServiceOilImageView.setVisibility(View.GONE);
+            workshopServiceOilTextView.setVisibility(View.GONE);
         }
 
         if (mWorkshop.getBatteryChange() == 0) {
-            workshopServiceBatteryImageView.setVisibility(View.GONE);
+            workshopServiceBatteryTextView.setVisibility(View.GONE);
         }
 
         ImageButton directionButton = (ImageButton) mLayout.findViewById(R.id.btn_direction);
@@ -101,7 +107,11 @@ public class WorkshopDetailsActivityFragment extends BaseFragment implements OnM
             public void onClick(View v) {
                 String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%s, %s", mWorkshop.getWorkshopCoordinates().latitude, mWorkshop.getWorkshopCoordinates().longitude);
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
-                startActivity(intent);
+                if (IntentUtil.isIntentAvailable(getActivity(), intent)) {
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), getString(R.string.error_navigation_app_not_exist), Toast.LENGTH_SHORT).show();
+                }
             }
         });
         ImageButton callButton = (ImageButton) mLayout.findViewById(R.id.btn_call);
@@ -110,8 +120,20 @@ public class WorkshopDetailsActivityFragment extends BaseFragment implements OnM
             public void onClick(View v) {
                 String callUri = String.format(Locale.ENGLISH, "tel:%s", mWorkshop.getPhone());
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(callUri));
-                startActivity(intent);
+                if (IntentUtil.isIntentAvailable(getActivity(), intent)) {
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getActivity(), getString(R.string.error_call_app_not_exist), Toast.LENGTH_SHORT).show();
+                }
             }
+        });
+
+        Button bookAppointmentButton = (Button) mLayout.findViewById(R.id.btn_book_appointment);
+        bookAppointmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), BookingActivity.class);
+                startActivity(intent);}
         });
         return mLayout;
     }

@@ -7,14 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import lukanta.raymond.com.workshopschedulerapp.R;
 import lukanta.raymond.com.workshopschedulerapp.mappage.WorkshopDetailsActivity;
 import lukanta.raymond.com.workshopschedulerapp.mappage.WorkshopDetailsActivityFragment;
 import lukanta.raymond.com.workshopschedulerapp.model.Workshop;
 import lukanta.raymond.com.workshopschedulerapp.ui.AbstractListAdapter;
+import lukanta.raymond.com.workshopschedulerapp.util.LatLngUtil;
 
 /**
  * Created by raymondlukanta on 23/06/16.
@@ -22,10 +25,12 @@ import lukanta.raymond.com.workshopschedulerapp.ui.AbstractListAdapter;
 public class WorkshopAdapter extends AbstractListAdapter<Workshop, WorkshopAdapter.ViewHolder> {
     private final Context mContext;
     private final LayoutInflater mInflater;
+    private final LatLng mCurrentLocation;
 
-    public WorkshopAdapter(Context context) {
+    public WorkshopAdapter(Context context, LatLng currentLocation) {
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
+        mCurrentLocation = currentLocation;
     }
 
     @Override
@@ -40,20 +45,22 @@ public class WorkshopAdapter extends AbstractListAdapter<Workshop, WorkshopAdapt
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView workshopNameTextView;
-        private final TextView workshopRatingTextView;
-        private final ImageView workshopServiceTyreImageView;
-        private final ImageView workshopServiceOilImageView;
-        private final ImageView workshopServiceBatteryImageView;
+        private final TextView workshopServiceTyreTextView;
+        private final TextView workshopServiceOilTextView;
+        private final TextView workshopServiceBatteryTextView;
+        private final TextView workshopServiceDistanceTextView;
+        private final RatingBar workshopRatingBar;
         private final ImageButton workshopMapImageButton;
 
         public ViewHolder(View v) {
             super(v);
             workshopNameTextView = (TextView) v.findViewById(R.id.txt_workshop_name);
-            workshopRatingTextView = (TextView) v.findViewById(R.id.txt_workshop_rating);
-            workshopServiceTyreImageView = (ImageView) v.findViewById(R.id.img_workshop_services_tire);
-            workshopServiceOilImageView = (ImageView) v.findViewById(R.id.img_workshop_services_oil);
-            workshopServiceBatteryImageView = (ImageView) v.findViewById(R.id.img_workshop_services_battery);
+            workshopRatingBar = (RatingBar) v.findViewById(R.id.rating_bar_workshop_rating);
+            workshopServiceTyreTextView = (TextView) v.findViewById(R.id.img_workshop_services_tyre);
+            workshopServiceOilTextView = (TextView) v.findViewById(R.id.img_workshop_services_oil);
+            workshopServiceBatteryTextView = (TextView) v.findViewById(R.id.img_workshop_services_battery);
             workshopMapImageButton = (ImageButton) v.findViewById(R.id.btn_workshop_map);
+            workshopServiceDistanceTextView = (TextView) v.findViewById(R.id.txt_workshop_distance);
         }
     }
 
@@ -61,7 +68,7 @@ public class WorkshopAdapter extends AbstractListAdapter<Workshop, WorkshopAdapt
         final Workshop workshop = mData.get(position);
 
         messagingViewHolder.workshopNameTextView.setText(workshop.getWorkshopName());
-        messagingViewHolder.workshopRatingTextView.setText(mContext.getString(R.string.rating, workshop.getCustomerRating()));
+        messagingViewHolder.workshopRatingBar.setRating(workshop.getCustomerRating());
         messagingViewHolder.workshopMapImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,12 +79,19 @@ public class WorkshopAdapter extends AbstractListAdapter<Workshop, WorkshopAdapt
         });
 
         int tyreChangeVisibility = workshop.getTyreChange() == 0 ? View.GONE : View.VISIBLE;
-        messagingViewHolder.workshopServiceTyreImageView.setVisibility(tyreChangeVisibility);
+        messagingViewHolder.workshopServiceTyreTextView.setVisibility(tyreChangeVisibility);
 
         int oilChangeVisibility = workshop.getOilChange() == 0 ? View.GONE : View.VISIBLE;
-        messagingViewHolder.workshopServiceOilImageView.setVisibility(oilChangeVisibility);
+        messagingViewHolder.workshopServiceOilTextView.setVisibility(oilChangeVisibility);
 
         int batteryChangeVisibility = workshop.getBatteryChange() == 0 ? View.GONE : View.VISIBLE;
-        messagingViewHolder.workshopServiceBatteryImageView.setVisibility(batteryChangeVisibility);
+        messagingViewHolder.workshopServiceBatteryTextView.setVisibility(batteryChangeVisibility);
+
+        double distance = 0;
+        if (mCurrentLocation != null) {
+            distance = LatLngUtil.distance(mCurrentLocation, workshop.getWorkshopCoordinates()) / 1000;
+        }
+        messagingViewHolder.workshopServiceDistanceTextView.setText(mContext.getString(R.string.distance, distance));
+        workshop.setDistance(distance);
     }
 }

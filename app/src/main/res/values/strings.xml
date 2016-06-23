@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">Workshop Scheduler App</string>
     <string name="action_settings">Settings</string>
-    <string name="rating">Rating: %1$d</string>
+    <string name="rating">Rating:</string>
     <string name="services">Services:</string>
     <string name="img_services_battery">img_services_battery</string>
     <string name="img_services_oil">img_services_oil</string>
     <string name="img_services_tire">img_services_tire</string>
     <string name="book">Book</string>
+    <string name="error_call_app_not_exist">Oops, you don\'t have application to perform voice call.</string>
+    <string name="error_navigation_app_not_exist">Oops, you don\'t have application to perform navigation.</string>
     <string name="error_common">Network error. Please confirm you have an internet connection and try again in a moment.</string>
     <string name="dialog_loading">Loading…</string>
     <string name="title_activity_map">Map</string>
@@ -20,4 +22,15 @@
     <string name="add_filters">Add Filters</string>
     <string name="filter">Filter</string>
     <string name="sort_by">Sort By</string>
+    <string name="tyre">Tyre</string>
+    <string name="oil">Oil</string>
+    <string name="battery">Battery</string>
+    <string name="distance_from_me">Distance From Me</string>
+    <string name="customer_rating">Customer Rating</string>
+    <string name="distance">Distance: %1$,.2f KM</string>
+    <string name="alert_dialog_important">IMPORTANT</string>
+    <string name="alert_dialog_location_permission_denied">We need to access your location to provide a better experience. Please grant the location permission.</string>
+    <string name="dialog_got_it">Got it</string>
+    <string name="title_activity_booking">BookingActivity</string>
+
 </resources>
