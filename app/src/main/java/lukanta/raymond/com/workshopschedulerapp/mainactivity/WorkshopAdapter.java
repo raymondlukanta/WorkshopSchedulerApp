@@ -72,16 +72,13 @@ public class WorkshopAdapter extends AbstractListAdapter<Workshop, WorkshopAdapt
             }
         });
 
-        if (workshop.getTyreChange() == 0) {
-            messagingViewHolder.workshopServiceTyreImageView.setVisibility(View.GONE);
-        }
+        int tyreChangeVisibility = workshop.getTyreChange() == 0 ? View.GONE : View.VISIBLE;
+        messagingViewHolder.workshopServiceTyreImageView.setVisibility(tyreChangeVisibility);
 
-        if (workshop.getOilChange() == 0) {
-            messagingViewHolder.workshopServiceOilImageView.setVisibility(View.GONE);
-        }
+        int oilChangeVisibility = workshop.getOilChange() == 0 ? View.GONE : View.VISIBLE;
+        messagingViewHolder.workshopServiceOilImageView.setVisibility(oilChangeVisibility);
 
-        if (workshop.getBatteryChange() == 0) {
-            messagingViewHolder.workshopServiceBatteryImageView.setVisibility(View.GONE);
-        }
+        int batteryChangeVisibility = workshop.getBatteryChange() == 0 ? View.GONE : View.VISIBLE;
+        messagingViewHolder.workshopServiceBatteryImageView.setVisibility(batteryChangeVisibility);
     }
 }
