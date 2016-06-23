@@ -11,7 +11,7 @@
     <string name="dialog_loading">Loading…</string>
     <string name="title_activity_map">Map</string>
     <string name="book_appointment">Book Appointment</string>
-    <string name="title_activity_workshop_details">WorkshopDetailsActivity</string>
+    <string name="title_activity_workshop_details">Workshop Details</string>
     <string name="btn_direction">btn_direction</string>
     <string name="btn_call">btn_call</string>
     <string name="tyre_change">Tyre Change</string>
