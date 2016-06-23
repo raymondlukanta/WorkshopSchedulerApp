@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txt_workshop_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Servotronic Motor Workshop" />
+
+    <TextView
+        android:id="@+id/txt_workshop_rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_workshop_name"
+        tools:text="Rating: 2" />
+
+    <TextView
+        android:id="@+id/txt_workshop_services"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_workshop_rating"
+        android:text="@string/services" />
+
+    <ImageView
+        android:id="@+id/img_workshop_services_tire"
+        android:layout_width="@dimen/services_icon_size"
+        android:layout_height="@dimen/services_icon_size"
+        android:layout_below="@+id/txt_workshop_rating"
+        android:layout_toRightOf="@+id/txt_workshop_services"
+        android:contentDescription="@string/img_services_tire"
+        android:src="@drawable/tire_icon" />
+
+    <ImageView
+        android:id="@+id/img_workshop_services_oil"
+        android:layout_width="@dimen/services_icon_size"
+        android:layout_height="@dimen/services_icon_size"
+        android:layout_below="@+id/txt_workshop_rating"
+        android:layout_toRightOf="@+id/img_workshop_services_tire"
+        android:contentDescription="@string/img_services_oil"
+        android:src="@drawable/oil_icon" />
+
+    <ImageView
+        android:id="@+id/img_workshop_services_battery"
+        android:layout_width="@dimen/services_icon_size"
+        android:layout_height="@dimen/services_icon_size"
+        android:layout_below="@+id/txt_workshop_rating"
+        android:layout_toRightOf="@+id/img_workshop_services_oil"
+        android:contentDescription="@string/img_services_battery"
+        android:src="@drawable/battery_icon" />
+</RelativeLayout>
