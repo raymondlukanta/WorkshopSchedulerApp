@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import lukanta.raymond.com.workshopschedulerapp.R;
 import lukanta.raymond.com.workshopschedulerapp.mappage.WorkshopDetailsActivity;
@@ -62,7 +61,7 @@ public class WorkshopAdapter extends AbstractListAdapter<Workshop, WorkshopAdapt
         final Workshop workshop = mData.get(position);
 
         messagingViewHolder.workshopNameTextView.setText(workshop.getWorkshopName());
-        messagingViewHolder.workshopRatingTextView.setText(mContext.getString(R.string.rating, workshop.getRating()));
+        messagingViewHolder.workshopRatingTextView.setText(mContext.getString(R.string.rating, workshop.getCustomerRating()));
         messagingViewHolder.workshopMapImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

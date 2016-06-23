@@ -13,7 +13,7 @@ public class Workshop implements Parcelable {
     private String workshopName;
     private String workshopCoordinates;
     private String phone;
-    private int rating;
+    private int customerRating;
     private int oilChange;
     private int batteryChange;
     private int tyreChange;
@@ -30,8 +30,8 @@ public class Workshop implements Parcelable {
         return phone;
     }
 
-    public int getRating() {
-        return rating;
+    public int getCustomerRating() {
+        return customerRating;
     }
 
     public int getTyreChange() {
@@ -65,7 +65,7 @@ public class Workshop implements Parcelable {
         dest.writeString(this.workshopName);
         dest.writeString(this.workshopCoordinates);
         dest.writeString(this.phone);
-        dest.writeInt(this.rating);
+        dest.writeInt(this.customerRating);
         dest.writeInt(this.oilChange);
         dest.writeInt(this.batteryChange);
         dest.writeInt(this.tyreChange);
@@ -79,7 +79,7 @@ public class Workshop implements Parcelable {
         this.workshopName = in.readString();
         this.workshopCoordinates = in.readString();
         this.phone = in.readString();
-        this.rating = in.readInt();
+        this.customerRating = in.readInt();
         this.oilChange = in.readInt();
         this.batteryChange = in.readInt();
         this.tyreChange = in.readInt();

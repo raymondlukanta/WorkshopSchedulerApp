@@ -3,7 +3,6 @@ package lukanta.raymond.com.workshopschedulerapp.mappage;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -82,7 +81,7 @@ public class WorkshopDetailsActivityFragment extends BaseFragment implements OnM
         ImageView workshopServiceBatteryImageView = (ImageView) mLayout.findViewById(R.id.img_workshop_services_battery);
 
         workshopNameTextView.setText(mWorkshop.getWorkshopName());
-        workshopRatingTextView.setText(getActivity().getString(R.string.rating, mWorkshop.getRating()));
+        workshopRatingTextView.setText(getActivity().getString(R.string.rating, mWorkshop.getCustomerRating()));
 
         if (mWorkshop.getTyreChange() == 0) {
             workshopServiceTyreImageView.setVisibility(View.GONE);
