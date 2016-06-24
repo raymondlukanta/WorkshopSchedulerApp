@@ -2,13 +2,149 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_horizontal_margin"
     tools:context=".bookingpage.BookingActivityFragment"
     tools:showIn="@layout/activity_booking">
 
-    <DatePicker
+    <ImageView
+        android:id="@+id/img_booking_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/img_booking_date"
+        android:src="@drawable/ic_today_black_24dp" />
+
+    <TextView
+        android:id="@+id/txt_booking_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img_booking_date"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:textSize="16sp" />
+
+    <View
+        android:id="@+id/booking_date_divider"
+        style="@style/VerticalDivider"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/img_booking_date"/>
+
+    <ImageView
+        android:id="@+id/img_booking_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/img_booking_time"
+        android:layout_below="@+id/booking_date_divider"
+        android:src="@drawable/ic_schedule_black_24dp" />
+
+    <Spinner
+        android:id="@+id/spinner_booking_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/booking_date_divider"
+        android:layout_toRightOf="@id/img_booking_time"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:textSize="16sp"/>
+
+    <View
+        android:id="@+id/booking_time_divider"
+        style="@style/VerticalDivider"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/img_booking_time"/>
+
+    <ImageView
+        android:id="@+id/img_booking_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/img_booking_person"
+        android:layout_below="@+id/booking_time_divider"
+        android:src="@drawable/ic_perm_identity_black_24dp" />
+
+    <EditText
+        android:id="@+id/txt_booking_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:spinnersShown="true"
-        />
+        android:layout_below="@+id/booking_time_divider"
+        android:layout_toRightOf="@id/img_booking_person"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:textSize="16sp"
+        android:hint="@string/name"/>
 
+    <EditText
+        android:id="@+id/txt_booking_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_booking_name"
+        android:layout_toRightOf="@id/img_booking_person"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:textSize="16sp"
+        android:hint="@string/phone"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/txt_booking_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_booking_phone"
+        android:layout_toRightOf="@id/img_booking_person"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:textSize="16sp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" />
+
+    <View
+        android:id="@+id/booking_person_divider"
+        style="@style/VerticalDivider"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/txt_booking_email"/>
+
+    <ImageView
+        android:id="@+id/img_booking_services"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/img_booking_services"
+        android:layout_below="@+id/booking_person_divider"
+        android:src="@drawable/ic_assignment_black_24dp" />
+
+    <CheckBox
+        android:id="@+id/cb_booking_change_tyre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/booking_person_divider"
+        android:layout_toRightOf="@id/img_booking_services"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/tyre_change"
+        android:textSize="16sp" />
+
+    <CheckBox
+        android:id="@+id/cb_booking_change_oil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cb_booking_change_tyre"
+        android:layout_toRightOf="@id/img_booking_services"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/oil_change"
+        android:textSize="16sp" />
+
+    <CheckBox
+        android:id="@+id/cb_booking_change_battery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cb_booking_change_oil"
+        android:layout_toRightOf="@id/img_booking_services"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/battery_change"
+        android:textSize="16sp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cb_booking_change_battery"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_alignParentRight="true"
+        android:text="@string/submit"/>
 </RelativeLayout>

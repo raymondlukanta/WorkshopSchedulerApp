@@ -32,5 +32,14 @@
     <string name="alert_dialog_location_permission_denied">We need to access your location to provide a better experience. Please grant the location permission.</string>
     <string name="dialog_got_it">Got it</string>
     <string name="title_activity_booking">BookingActivity</string>
+    <string name="img_booking_date">image booking date</string>
+    <string name="img_booking_time">image booking time</string>
+    <string name="img_booking_person">image booking person</string>
+    <string name="img_booking_services">image booking services</string>
+    <string name="phone">Phone</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="submit">Submit</string>
+    <string name="fully_booked">&#160;(Fully Booked)</string>
 
 </resources>
