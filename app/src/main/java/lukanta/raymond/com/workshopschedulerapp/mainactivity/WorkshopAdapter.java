@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.LatLng;
 
 import lukanta.raymond.com.workshopschedulerapp.R;
+import lukanta.raymond.com.workshopschedulerapp.bookingpage.BookingActivity;
 import lukanta.raymond.com.workshopschedulerapp.mappage.WorkshopDetailsActivity;
 import lukanta.raymond.com.workshopschedulerapp.mappage.WorkshopDetailsActivityFragment;
 import lukanta.raymond.com.workshopschedulerapp.model.Workshop;
@@ -51,6 +53,7 @@ public class WorkshopAdapter extends AbstractListAdapter<Workshop, WorkshopAdapt
         private final TextView workshopServiceDistanceTextView;
         private final RatingBar workshopRatingBar;
         private final ImageButton workshopMapImageButton;
+        private final Button workshopBookButton;
 
         public ViewHolder(View v) {
             super(v);
@@ -61,6 +64,7 @@ public class WorkshopAdapter extends AbstractListAdapter<Workshop, WorkshopAdapt
             workshopServiceBatteryTextView = (TextView) v.findViewById(R.id.img_workshop_services_battery);
             workshopMapImageButton = (ImageButton) v.findViewById(R.id.btn_workshop_map);
             workshopServiceDistanceTextView = (TextView) v.findViewById(R.id.txt_workshop_distance);
+            workshopBookButton = (Button)v.findViewById(R.id.btn_workshop_book);
         }
     }
 
@@ -93,5 +97,12 @@ public class WorkshopAdapter extends AbstractListAdapter<Workshop, WorkshopAdapt
         }
         messagingViewHolder.workshopServiceDistanceTextView.setText(mContext.getString(R.string.distance, distance));
         workshop.setDistance(distance);
+
+        messagingViewHolder.workshopBookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, BookingActivity.class);
+                mContext.startActivity(intent);}
+        });
     }
 }

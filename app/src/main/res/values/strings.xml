@@ -31,7 +31,7 @@
     <string name="alert_dialog_important">IMPORTANT</string>
     <string name="alert_dialog_location_permission_denied">We need to access your location to provide a better experience. Please grant the location permission.</string>
     <string name="dialog_got_it">Got it</string>
-    <string name="title_activity_booking">BookingActivity</string>
+    <string name="title_activity_booking">Booking Appointment</string>
     <string name="img_booking_date">image booking date</string>
     <string name="img_booking_time">image booking time</string>
     <string name="img_booking_person">image booking person</string>

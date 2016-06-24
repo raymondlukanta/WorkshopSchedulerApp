@@ -1,15 +1,20 @@
 package lukanta.raymond.com.workshopschedulerapp.bookingpage;
 
 import android.app.DatePickerDialog;
+import android.app.admin.DeviceAdminInfo;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +30,7 @@ import lukanta.raymond.com.workshopschedulerapp.model.BookingTime;
  * A placeholder fragment containing a simple view.
  */
 public class BookingActivityFragment extends Fragment {
+    private static int NO_MORE_TIME_SLOT = -1;
     private SimpleDateFormat mSimpleDateFormat;
     private TextView mDateTextView;
 
@@ -76,14 +82,66 @@ public class BookingActivityFragment extends Fragment {
             }
         });
 
-        Spinner dateSpinner = (Spinner)layout.findViewById(R.id.spinner_booking_time);
+        final Spinner dateSpinner = (Spinner)layout.findViewById(R.id.spinner_booking_time);
         List<BookingTime> bookingTimeList = generateDummyData(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
 
         BookingTimeAdapter bookingTimeAdapter = new BookingTimeAdapter(getActivity(),android.R.layout.simple_spinner_dropdown_item, bookingTimeList);
 
         dateSpinner.setAdapter(bookingTimeAdapter);
 
+        if (bookingTimeList.get(0).isFullyBooked()) {
+            int nextAvailableSlot = getNextAvailableSlot(bookingTimeList);
+            if (nextAvailableSlot == NO_MORE_TIME_SLOT) {
+                dateSpinner.setEnabled(false);
+                Toast.makeText(getActivity(), "This workshop is fully booked. Try another day.", Toast.LENGTH_SHORT).show();
+
+            } else {
+                dateSpinner.setSelection(nextAvailableSlot);
+            }
+        }
+
+        final EditText nameTextView = (EditText) layout.findViewById(R.id.txt_booking_name);
+        final EditText phoneTextView = (EditText) layout.findViewById(R.id.txt_booking_email);
+        final EditText emailTextView = (EditText) layout.findViewById(R.id.txt_booking_phone);
+
+        final CheckBox tyreCheckBox = (CheckBox) layout.findViewById(R.id.cb_booking_change_tyre);
+        final CheckBox oilCheckBox = (CheckBox) layout.findViewById(R.id.cb_booking_change_oil);
+        final CheckBox batteryCheckBox = (CheckBox) layout.findViewById(R.id.cb_booking_change_battery);
+
+        Button submitButton = (Button)layout.findViewById(R.id.btn_submit_booking);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nameString = nameTextView.getText().toString().trim();
+                String phoneString = phoneTextView.getText().toString().trim();
+                String emailString = emailTextView.getText().toString().trim();
+
+                String message;
+                if (dateSpinner.isEnabled()
+                        && !nameString.isEmpty()
+                        && !phoneString.isEmpty()
+                        && !emailString.isEmpty()
+                        && (tyreCheckBox.isChecked()
+                            || oilCheckBox.isChecked()
+                            || batteryCheckBox.isChecked())) {
+                    message = "Sending data to server";
+                } else {
+                    message = "Please fill in all the fields";
+                }
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+
+            }
+        });
         return layout;
+    }
+
+    private int getNextAvailableSlot(List<BookingTime> bookingTimeList) {
+        for (int i = 1; i< bookingTimeList.size(); i++) {
+            if (!bookingTimeList.get(i).isFullyBooked()) {
+                return i;
+            }
+        }
+        return NO_MORE_TIME_SLOT;
     }
 
     private List<BookingTime> generateDummyData(int year, int month, int day) {

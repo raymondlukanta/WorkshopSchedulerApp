@@ -33,7 +33,7 @@ public class BookingTimeAdapter extends ArrayAdapter {
 
     @Override
     public boolean isEnabled(int position) {
-        return ((BookingTime) getItem(position)).isFullyBooked();
+        return !((BookingTime) getItem(position)).isFullyBooked();
     }
 
     @Override

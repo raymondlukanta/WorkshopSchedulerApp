@@ -30,6 +30,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:$AndroidSupportVersion"
     compile "com.android.support:design:$AndroidSupportVersion"
     compile "com.android.support:recyclerview-v7:$AndroidSupportVersion"
+    compile "com.android.support:cardview-v7:$AndroidSupportVersion"
     compile "com.android.support:percent:$AndroidSupportVersion"
 
     compile "com.google.android.gms:play-services-base:$GooglePlayServiceVersion"
