@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="lukanta.raymond.com.workshopschedulerapp">
+    package="com.lukanta.raymond.workshopschedulerapp">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -36,7 +36,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="lukanta.raymond.com.workshopschedulerapp.mainactivity.MainActivity" />
+                android:value="com.lukanta.raymond.workshopschedulerapp.mainactivity.MainActivity" />
         </activity>
         <activity
             android:name=".bookingpage.BookingActivity"
@@ -46,7 +46,7 @@
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="lukanta.raymond.com.workshopschedulerapp.mappage.WorkshopDetailsActivity" />
+                android:value="com.lukanta.raymond.workshopschedulerapp.mappage.WorkshopDetailsActivity" />
         </activity>
 
         <!--

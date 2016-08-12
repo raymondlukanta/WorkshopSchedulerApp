@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "lukanta.raymond.com.workshopschedulerapp"
+        applicationId "com.lukanta.raymond.workshopschedulerapp"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
