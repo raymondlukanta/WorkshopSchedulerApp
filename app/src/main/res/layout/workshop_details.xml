@@ -1,83 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/txt_workshop_name"
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="workshop"
+            type="com.lukanta.raymond.workshopschedulerapp.model.Workshop" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:paddingBottom="4dp"
-        tools:text="Servotronic Motor Workshop" />
-
-    <TextView
-        android:id="@+id/txt_workshop_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_workshop_name"
-        android:text="@string/rating" />
-
-    <RatingBar
-        android:id="@+id/rating_bar_workshop_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_workshop_name"
-        android:layout_toRightOf="@+id/txt_workshop_rating"
-        style="?android:attr/ratingBarStyleSmall"
-        android:numStars="5"
-        android:rating="3"
-        android:isIndicator="true"/>
-
-    <android.support.percent.PercentRelativeLayout
-        android:id="@+id/workshop_services_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_workshop_rating">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/txt_workshop_services"
+            android:id="@+id/txt_workshop_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:text="@{workshop.workshopName}"
+            android:textSize="18sp"
+            tools:text="Servotronic Motor Workshop" />
+
+        <TextView
+            android:id="@+id/txt_workshop_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="6dp"
-            android:text="@string/services" />
+            android:layout_below="@+id/txt_workshop_name"
+            android:text="@string/rating" />
+
+        <RatingBar
+            android:id="@+id/rating_bar_workshop_rating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_workshop_name"
+            android:layout_toRightOf="@+id/txt_workshop_rating"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:rating="@{workshop.customerRating}" />
+
+        <android.support.percent.PercentRelativeLayout
+            android:id="@+id/workshop_services_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_workshop_rating">
+
+            <TextView
+                android:id="@+id/txt_workshop_services"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="6dp"
+                android:text="@string/services" />
+
+            <TextView
+                android:id="@+id/img_workshop_services_tyre"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/txt_workshop_services"
+                android:contentDescription="@string/img_services_tire"
+                android:drawableLeft="@drawable/tire_icon"
+                android:text="@string/tyre"
+                app:layout_widthPercent="25%"
+                android:visibility="@{workshop.tyreChange == 0 ? View.GONE : View.VISIBLE}"/>
+
+            <TextView
+                android:id="@+id/img_workshop_services_oil"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/img_workshop_services_tyre"
+                android:contentDescription="@string/img_services_oil"
+                android:drawableLeft="@drawable/oil_icon"
+                android:text="@string/oil"
+                app:layout_widthPercent="25%"
+                android:visibility="@{workshop.oilChange == 0 ? View.GONE : View.VISIBLE}"/>
+
+            <TextView
+                android:id="@+id/img_workshop_services_battery"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/img_workshop_services_oil"
+                android:contentDescription="@string/img_services_battery"
+                android:drawableLeft="@drawable/battery_icon"
+                android:text="@string/battery"
+                app:layout_widthPercent="25%"
+                android:visibility="@{workshop.batteryChange == 0 ? View.GONE : View.VISIBLE}"/>
+
+        </android.support.percent.PercentRelativeLayout>
 
         <TextView
-            android:id="@+id/img_workshop_services_tyre"
-            app:layout_widthPercent="25%"
+            android:id="@+id/txt_workshop_distance"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/txt_workshop_services"
-            android:contentDescription="@string/img_services_tire"
-            android:text="@string/tyre"
-            android:drawableLeft="@drawable/tire_icon" />
+            android:layout_below="@+id/workshop_services_layout"
+            android:text="@{@string/distance(workshop.distance)}" />
 
-        <TextView
-            android:id="@+id/img_workshop_services_oil"
-            app:layout_widthPercent="25%"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/img_workshop_services_tyre"
-            android:contentDescription="@string/img_services_oil"
-            android:text="@string/oil"
-            android:drawableLeft="@drawable/oil_icon" />
-
-        <TextView
-            android:id="@+id/img_workshop_services_battery"
-            app:layout_widthPercent="25%"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/img_workshop_services_oil"
-            android:contentDescription="@string/img_services_battery"
-            android:text="@string/battery"
-            android:drawableLeft="@drawable/battery_icon" />
-
-    </android.support.percent.PercentRelativeLayout>
-
-    <TextView
-        android:id="@+id/txt_workshop_distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/workshop_services_layout"
-        android:text="@string/distance" />
-
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

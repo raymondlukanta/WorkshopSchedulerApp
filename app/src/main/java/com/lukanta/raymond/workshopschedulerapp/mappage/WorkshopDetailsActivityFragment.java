@@ -1,17 +1,14 @@
 package com.lukanta.raymond.workshopschedulerapp.mappage;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,14 +17,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.Locale;
-
-import com.lukanta.raymond.workshopschedulerapp.bookingpage.BookingActivity;
 import com.lukanta.raymond.workshopschedulerapp.R;
+import com.lukanta.raymond.workshopschedulerapp.bookingpage.BookingActivity;
+import com.lukanta.raymond.workshopschedulerapp.databinding.FragmentWorkshopDetailsBinding;
 import com.lukanta.raymond.workshopschedulerapp.model.Workshop;
 import com.lukanta.raymond.workshopschedulerapp.ui.BaseFragment;
 import com.lukanta.raymond.workshopschedulerapp.util.IntentUtil;
+
+import java.util.Locale;
 
 /**
  placeholder fragment containing a simple view.
@@ -38,7 +35,7 @@ public class WorkshopDetailsActivityFragment extends BaseFragment implements OnM
     private GoogleMap mMap;
     private View mLayout;
     private Workshop mWorkshop;
-
+    FragmentWorkshopDetailsBinding mBinding;
     public WorkshopDetailsActivityFragment() {
     }
 
@@ -68,7 +65,10 @@ public class WorkshopDetailsActivityFragment extends BaseFragment implements OnM
                 parent.removeView(mLayout);
         }
         try {
-            mLayout = inflater.inflate(R.layout.fragment_workshop_details, container, false);
+            mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_workshop_details, container, false);
+            mLayout = mBinding.getRoot();
+            mBinding.setWorkshop(mWorkshop);
+
         } catch (InflateException e) {
             //e.printStackTrace();
             /* map is already there, just return view as it is */
@@ -77,32 +77,7 @@ public class WorkshopDetailsActivityFragment extends BaseFragment implements OnM
         SupportMapFragment mapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map));
         mapFragment.getMapAsync(this);
 
-        TextView workshopNameTextView = (TextView) mLayout.findViewById(R.id.txt_workshop_name);
-        RatingBar workshopRatingBar = (RatingBar) mLayout.findViewById(R.id.rating_bar_workshop_rating);
-        TextView workshopServiceTyreTextView = (TextView) mLayout.findViewById(R.id.img_workshop_services_tyre);
-        TextView workshopServiceOilTextView = (TextView) mLayout.findViewById(R.id.img_workshop_services_oil);
-        TextView workshopServiceBatteryTextView = (TextView) mLayout.findViewById(R.id.img_workshop_services_battery);
-        TextView workshopServiceDistanceTextView = (TextView) mLayout.findViewById(R.id.txt_workshop_distance);;
-
-        workshopNameTextView.setText(mWorkshop.getWorkshopName());
-        workshopRatingBar.setRating(mWorkshop.getCustomerRating());
-
-        workshopServiceDistanceTextView.setText(getActivity().getString(R.string.distance, mWorkshop.getDistance()));
-
-        if (mWorkshop.getTyreChange() == 0) {
-            workshopServiceTyreTextView.setVisibility(View.GONE);
-        }
-
-        if (mWorkshop.getOilChange() == 0) {
-            workshopServiceOilTextView.setVisibility(View.GONE);
-        }
-
-        if (mWorkshop.getBatteryChange() == 0) {
-            workshopServiceBatteryTextView.setVisibility(View.GONE);
-        }
-
-        ImageButton directionButton = (ImageButton) mLayout.findViewById(R.id.btn_direction);
-        directionButton.setOnClickListener(new View.OnClickListener() {
+        mBinding.btnDirection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%s, %s", mWorkshop.getWorkshopCoordinates().latitude, mWorkshop.getWorkshopCoordinates().longitude);
@@ -114,8 +89,7 @@ public class WorkshopDetailsActivityFragment extends BaseFragment implements OnM
                 }
             }
         });
-        ImageButton callButton = (ImageButton) mLayout.findViewById(R.id.btn_call);
-        callButton.setOnClickListener(new View.OnClickListener() {
+        mBinding.btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String callUri = String.format(Locale.ENGLISH, "tel:%s", mWorkshop.getPhone());
@@ -128,8 +102,7 @@ public class WorkshopDetailsActivityFragment extends BaseFragment implements OnM
             }
         });
 
-        Button bookAppointmentButton = (Button) mLayout.findViewById(R.id.btn_book_appointment);
-        bookAppointmentButton.setOnClickListener(new View.OnClickListener() {
+        mBinding.btnBookAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), BookingActivity.class);
